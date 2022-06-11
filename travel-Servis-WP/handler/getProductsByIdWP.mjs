@@ -21,10 +21,12 @@ export const getProductsByIdWP = async (event) => {
     };
   } else {
     return {
-      statusCode: 201,
-      body: JSON.stringify({
-        idProduct,
-      }),
+      statusCode: 404,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true,
+      },
+      body: JSON.stringify({ message: "Product not found" }),
     };
   }
 };

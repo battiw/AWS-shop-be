@@ -1,0 +1,38 @@
+{
+  "name": "aws-shop-be",
+  "version": "1.0.0",
+  "description": "",
+  "main": "product.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/battiw/AWS-shop-be.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/battiw/AWS-shop-be/issues"
+  },
+  "homepage": "https://github.com/battiw/AWS-shop-be#readme",
+  "dependencies": {
+    "esm": "^3.2.25",
+    "json-loader": "^0.5.7",
+    "source-map-support": "^0.5.19"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.18.2",
+    "@babel/node": "^7.17.10",
+    "@babel/plugin-transform-runtime": "^7.15.0",
+    "@babel/preset-env": "^7.18.2",
+    "babel-loader": "^8.2.2",
+    "jest": "^27.0.6",
+    "serverless-webpack": "^5.7.1",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-node-externals": "^3.0.0"
+  }
+}

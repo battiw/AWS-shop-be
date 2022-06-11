@@ -1,0 +1,34 @@
+service: travel-servis
+
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: dev
+  region: eu-west-1
+
+functions:
+  getProductsList:
+    handler: handler/getProductsList.getProductsList
+    events:
+      - http:
+          path: products
+          method: get
+          cors: true
+  getProductsById:
+    handler: handler/getProductsById.getProductsById
+    events:
+      - http:
+          path: /products/{productId}
+          method: get
+          cors: true
+# plugins:
+#   - serverless-webpack
+
+# custom:
+#   webpack:
+#     webpackConfig: "./webpack.config.js" # Name of webpack configuration file
+#     includeModules: false # Node modules configuration for packaging
+#     packager: "npm" # Packager that will be used to package your external modules
+#     excludeFiles: src/**/*.test.js # Provide a glob for files to ignore

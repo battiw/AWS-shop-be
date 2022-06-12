@@ -3,7 +3,7 @@
 import productList from "./product.mjs";
 
 export const getProductsByIdWP = async (event) => {
-  const idProduct = event.pathParameters.productId;
+  const idProduct = await event.pathParameters.productId;
 
   const product = productList.find((item) => item.id === idProduct);
 

@@ -20,6 +20,7 @@
   "dependencies": {
     "esm": "^3.2.25",
     "json-loader": "^0.5.7",
+    "pg": "^8.7.3",
     "source-map-support": "^0.5.19"
   },
   "devDependencies": {

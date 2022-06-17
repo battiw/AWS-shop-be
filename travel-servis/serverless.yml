@@ -8,27 +8,25 @@ provider:
   stage: dev
   region: eu-west-1
 
+  environment:
+    PG_HOST: db-shop-be.cetpkwcmhoac.eu-west-1.rds.amazonaws.com
+    PG_PORT: 5432
+    PG_DATABASE: dbshopbe
+    PG_USERNAME: dbshopbe
+    PG_PASSWORD: ZMTvLWDr5KXjQvk9eqeX
+
 functions:
-  getProductsList:
+  getProductsListTask4:
     handler: handler/getProductsList.getProductsList
     events:
       - http:
           path: products
           method: get
           cors: true
-  getProductsById:
-    handler: handler/getProductsById.getProductsById
-    events:
-      - http:
-          path: /products/{productId}
-          method: get
-          cors: true
-# plugins:
-#   - serverless-webpack
-
-# custom:
-#   webpack:
-#     webpackConfig: "./webpack.config.js" # Name of webpack configuration file
-#     includeModules: false # Node modules configuration for packaging
-#     packager: "npm" # Packager that will be used to package your external modules
-#     excludeFiles: src/**/*.test.js # Provide a glob for files to ignore
+#   getProductsById:
+#     handler: handler/getProductsById.getProductsById
+#     events:
+#       - http:
+#           path: /products/{productId}
+#           method: get
+#           cors: true

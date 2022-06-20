@@ -35,13 +35,9 @@ export const getProductsList = async (event) => {
           count integer,
           foreign key ("product_id") references "products" ("id")
       )`);
-    const dnlResult1 = await client.query(`
-    insert into products ( title, description, price) values
-    ( 'Voucher 001 - Czech Republic', 'Czech Republic', 350 ),
-    ( 'Voucher 001 - Mexico', 'Mexico', 1680),
-    ( 'Voucher 001 - United Arab Emirates', 'United Arab Emirates', 1490),
-    ( 'Voucher 001 - United States', 'United States', 1900),
-    ( 'Voucher 005 - Montenegro', 'Montenegro', 270)`);
+    // const dnlResult1 = await client.query(`
+    // insert into products ( title, description, price) values
+    // ( 'Voucher 001 - Benin', 'Benin', 999 )`);
 
     const { rows: productsConsole } = await client.query(
       `select * from products`
@@ -49,6 +45,10 @@ export const getProductsList = async (event) => {
     console.log(productsConsole);
     return {
       statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true,
+      },
       body: JSON.stringify({
         productsConsole,
       }),

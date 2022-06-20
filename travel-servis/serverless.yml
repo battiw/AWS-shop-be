@@ -23,10 +23,10 @@ functions:
           path: products
           method: get
           cors: true
-#   getProductsById:
-#     handler: handler/getProductsById.getProductsById
-#     events:
-#       - http:
-#           path: /products/{productId}
-#           method: get
-#           cors: true
+  getProductsByIdTask4:
+    handler: handler/getProductsById.getProductsById
+    events:
+      - http:
+          path: /products/{productId}
+          method: get
+          cors: true

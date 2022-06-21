@@ -30,3 +30,10 @@ functions:
           path: /products/{productId}
           method: get
           cors: true
+  postProductsTask4:
+    handler: handler/postProducts.postProducts
+    events:
+      - http:
+          path: products
+          method: post
+          cors: true

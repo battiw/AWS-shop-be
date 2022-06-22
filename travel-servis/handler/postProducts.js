@@ -22,25 +22,29 @@ export const postProducts = async (event) => {
   await client.connect();
 
   try {
+    const bodyPost = await JSON.parse(event.body);
+    const { title, description, price, count } = bodyPost;
+
     const dnlResultProducts = await client.query(`
     insert into products ( title, description, price) values
-    ('Poland', 'Poland', 999) returning id`);
-
+    ('${title}', '${description}', '${price}') returning id`);
     const createProId = dnlResultProducts.rows[0].id;
 
     const dnlResultStocks = await client.query(`
     insert into stocks (product_id, count) values
-    ('${createProId}', 6) `);
+    ('${createProId}', '${count}') `);
 
     return {
       statusCode: 200,
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Credentials": true,
+        "Content-Type": "application/JSON",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
       },
-      body: JSON.stringify({
-        dnlResultStocks,
-      }),
+      body: JSON.stringify(bodyPost),
+      isBase64Encoded: false,
     };
   } catch (err) {
     console.error("ErRoR", err);

@@ -38,7 +38,7 @@ export const postProducts = async (event) => {
     await client.query("COMMIT");
 
     return {
-      statusCode: 200,
+      statusCode: 201,
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Credentials": true,
@@ -52,6 +52,16 @@ export const postProducts = async (event) => {
   } catch (err) {
     await client.query("ROLLBACK");
     console.error("ErRoR", err);
+    return {
+      statusCode: 500,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true,
+      },
+      body: JSON.stringify({
+        message: "Unhandled error",
+      }),
+    };
   } finally {
     client.end();
   }

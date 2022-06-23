@@ -43,6 +43,16 @@ export const getProductsById = async (event) => {
     };
   } catch (err) {
     console.error("ErRoR", err);
+    return {
+      statusCode: 500,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true,
+      },
+      body: JSON.stringify({
+        message: "Unhandled error",
+      }),
+    };
   } finally {
     client.end();
   }

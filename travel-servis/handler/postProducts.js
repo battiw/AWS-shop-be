@@ -25,6 +25,7 @@ export const postProducts = async (event) => {
     const bodyPost = await JSON.parse(event.body);
     const { title, description, price, count } = bodyPost;
 
+    await client.query("BEGIN");
     const dnlResultProducts = await client.query(`
     insert into products ( title, description, price) values
     ('${title}', '${description}', '${price}') returning id`);
@@ -33,6 +34,8 @@ export const postProducts = async (event) => {
     const dnlResultStocks = await client.query(`
     insert into stocks (product_id, count) values
     ('${createProId}', '${count}') `);
+
+    await client.query("COMMIT");
 
     return {
       statusCode: 200,
@@ -47,6 +50,7 @@ export const postProducts = async (event) => {
       isBase64Encoded: false,
     };
   } catch (err) {
+    await client.query("ROLLBACK");
     console.error("ErRoR", err);
   } finally {
     client.end();

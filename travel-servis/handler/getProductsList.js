@@ -21,6 +21,8 @@ export const getProductsList = async (event) => {
   const client = new Client(dbOptions);
   await client.connect();
 
+  console.log("Incoming request: ", event);
+
   try {
     const ddlResult1 = await client.query(`
       create table if not exists products (

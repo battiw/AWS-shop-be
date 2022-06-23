@@ -26,6 +26,10 @@ export const postProducts = async (event) => {
 
     const { title, description, price, count } = bodyPost;
 
+    console.log(
+      `Incoming request. TITLE = ${title}, DESCRIPTION = ${description}, PRICE = ${price}, COUNT = ${count}`
+    );
+
     if (typeof title == "number")
       throw "Invalid input type. TITLE must be a string, not a number";
     if (title == null) throw "Invalid input type.";

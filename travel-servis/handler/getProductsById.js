@@ -21,6 +21,8 @@ export const getProductsById = async (event) => {
   const client = new Client(dbOptions);
   await client.connect();
 
+  console.log("Incoming request product ID: ", event);
+
   try {
     const idProduct = await event.pathParameters.productId;
 

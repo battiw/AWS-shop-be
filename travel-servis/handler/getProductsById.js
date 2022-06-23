@@ -26,6 +26,8 @@ export const getProductsById = async (event) => {
   try {
     const idProduct = await event.pathParameters.productId;
 
+    console.log("Incoming request product ID: ", idProduct);
+
     const selectId = JSON.stringify(idProduct).substr(1, 36);
 
     const { rows: productsConsole } = await client.query(

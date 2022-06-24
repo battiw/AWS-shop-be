@@ -34,22 +34,22 @@ export const postProducts = async (event) => {
       COUNT = ${count}`
     );
 
-    if (typeof title == "number")
-      throw "Invalid input type. TITLE must be a string, not a number";
-    if (title == null) throw "Invalid input type.";
-    if (title === "") throw "Invalid input. Enter data";
-    if (typeof description == "number")
-      throw "Invalid input type. DESCRIPTION must be a string, not a number";
-    if (description == null) throw "Invalid input type.";
-    if (description === "") throw "Invalid input. Enter data";
-    if (typeof price == "string")
-      throw "Invalid input type. PRICE must be a number, not a string";
-    if (price == null) throw "Invalid input type.";
-    if (price === 0) throw "Invalid input. Enter data";
-    if (typeof count == "string")
-      throw "Invalid input type. COUNT must be a number, not a string";
-    if (count == null) throw "Invalid input type.";
-    if (count === 0) throw "Invalid input. Enter data";
+    // if (typeof title == "number")
+    //   throw "Invalid input type. TITLE must be a string, not a number";
+    // if (title == null) throw "Invalid input type.";
+    // if (title === "") throw "Invalid input. Enter data";
+    // if (typeof description == "number")
+    //   throw "Invalid input type. DESCRIPTION must be a string, not a number";
+    // if (description == null) throw "Invalid input type.";
+    // if (description === "") throw "Invalid input. Enter data";
+    // if (typeof price == "string")
+    //   throw "Invalid input type. PRICE must be a number, not a string";
+    // if (price == null) throw "Invalid input type.";
+    // if (price === 0) throw "Invalid input. Enter data";
+    // if (typeof count == "string")
+    //   throw "Invalid input type. COUNT must be a number, not a string";
+    // if (count == null) throw "Invalid input type.";
+    // if (count === 0) throw "Invalid input. Enter data";
 
     await client.query("BEGIN");
 
@@ -57,6 +57,8 @@ export const postProducts = async (event) => {
     insert into products ( title, description, price) values
     ('${title}', '${description}', '${price}') returning id`);
     const createProId = dnlResultProducts.rows[0].id;
+
+    console.log(dnlResultProducts);
 
     const dnlResultStocks = await client.query(`
     insert into stocks (product_id, count) values
@@ -82,21 +84,20 @@ export const postProducts = async (event) => {
 
     console.error("ErRoR", err);
 
-    if (err) {
+    if (err.name === "SyntaxError" || err.code === "22P02") {
+      console.log("ErRoR SyntaxError: ", err.code);
       return {
-        statusCode: 401,
+        statusCode: 400,
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Credentials": true,
-          "Content-Type": "application/JSON",
-          "Access-Control-Allow-Headers": "Content-Type",
-          "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
         },
-        body: err,
+        body: JSON.stringify({ message: "Product data is invalid" }),
 
         isBase64Encoded: false,
       };
     } else {
+      console.log("ErRoR status 500: ", err);
       return {
         statusCode: 500,
         headers: {

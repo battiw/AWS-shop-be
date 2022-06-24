@@ -1,6 +1,8 @@
 service: travel-servis
 
 frameworkVersion: "3"
+useDotenv: true
+# configValidationMode: error
 
 provider:
   name: aws
@@ -9,11 +11,11 @@ provider:
   region: eu-west-1
 
   environment:
-    PG_HOST: db-shop-be.cetpkwcmhoac.eu-west-1.rds.amazonaws.com
-    PG_PORT: 5432
-    PG_DATABASE: dbshopbe
-    PG_USERNAME: dbshopbe
-    PG_PASSWORD: ZMTvLWDr5KXjQvk9eqeX
+    PG_HOST: $PG_HOST
+    PG_PORT: $PG_PORT
+    PG_DATABASE: $PG_DATABASE
+    PG_USERNAME: $PG_USERNAME
+    PG_PASSWORD: $PG_PASSWORD
 
 functions:
   getProductsListTask4:
@@ -37,3 +39,5 @@ functions:
           path: products
           method: post
           cors: true
+plugins:
+  - serverless-dotenv-plugin

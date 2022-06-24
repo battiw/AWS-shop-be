@@ -27,7 +27,11 @@ export const postProducts = async (event) => {
     const { title, description, price, count } = bodyPost;
 
     console.log(
-      `Incoming request. TITLE = ${title}, DESCRIPTION = ${description}, PRICE = ${price}, COUNT = ${count}`
+      `Incoming request. 
+      TITLE = ${title}, 
+      DESCRIPTION = ${description}, 
+      PRICE = ${price}, 
+      COUNT = ${count}`
     );
 
     if (typeof title == "number")

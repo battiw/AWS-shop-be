@@ -3,7 +3,7 @@ export default [
     count: 4,
     description: "Czech Republic ",
     id: "7567ec4b-b10c-48c5-9345-fc73c48a80aa",
-    price: 350,
+    price: 351,
     title: "Czech Republic",
   },
   {

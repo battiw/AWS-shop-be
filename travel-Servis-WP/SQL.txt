@@ -1,0 +1,42 @@
+--create database dbshopbe;
+--
+--create table products(
+--id uuid primary key default uuid_generate_v4(),
+--title varchar(100) NOT NULL,
+--description varchar(100) NOT NULL,
+--price integer NOT NULL
+--)
+--
+--create table stocks(
+--product_id uuid,
+--count integer NOT NULL,
+--foreign key ("product_id") references "products" ("id")
+--)
+--
+--// delete table
+--drop table products;
+--drop table stocks;
+--
+--insert into products ( title, description, price) values
+--( 'Czech Republic', 'Czech Republic', 350 ),
+--( 'Mexico', 'Mexico', 1680),
+--( 'United Arab Emirates', 'United Arab Emirates', 1490),
+--( 'United States', 'United States', 1900),
+--( 'Montenegro', 'Montenegro', 270)
+--
+--insert into stocks (product_id, count) values
+--( '47a36c09-90b6-431a-ab8f-40b7133b9893', 12 ),
+--( '5edcb945-7844-46e9-8556-fef33ed5dad6', 9 ),
+--( 'da55b8d6-0b0f-44ba-a680-324b48695bfd', 19 ),
+--( 'd5c8208f-4a18-456d-83c1-a144fd0d70cf', 3 ),
+--( '769bc40c-de1a-49b6-9bcc-dc1649de2359', 27 )
+--
+
+
+--// The uuid-ossp module provides functions to generate universally unique identifiers (UUIDs) using one of several standard algorithms.
+--create extension if not exists "uuid-ossp";
+
+
+// Delete data 
+--DELETE FROM stocks;
+--DELETE FROM products;

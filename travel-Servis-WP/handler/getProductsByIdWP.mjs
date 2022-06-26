@@ -28,11 +28,8 @@ export const getProductsByIdWP = async (event) => {
 
     console.log("Incoming request product ID: ", idProduct);
 
-    const selectId = JSON.stringify(idProduct).substr(1, 36);
-
     const { rows: productsConsole } = await client.query(
-      `select id, price, count, title, description from products p left join stocks s on p.id = s.product_id where id in ('${selectId}')`
-      // `select * from products WHERE id = '${ aaa}'`
+      `select id, price, count, title, description from products p left join stocks s on p.id = s.product_id where id in ('${idProduct}')`
     );
 
     return {

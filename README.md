@@ -3,8 +3,8 @@
 ## API
 
 //
-[AWS-shop-BE-WP](https://07yjzeof27.execute-api.eu-west-1.amazonaws.com/dev/products/)
-[AWS-shop-BE-without WP](https://7qmhjcyh44.execute-api.eu-west-1.amazonaws.com/dev/products/)
+[AWS-shop-BE-WP](https://46uhhn9ob6.execute-api.eu-west-1.amazonaws.com/dev/products)
+[AWS-shop-BE-without WP](https://532hjluq2m.execute-api.eu-west-1.amazonaws.com/dev/products)
 [AWS-shop-FE](https://d1zdbonze7xn8z.cloudfront.net)
 
 ## Repositori

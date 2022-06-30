@@ -1,8 +1,7 @@
-service: travel-servis
+service: product-servis-forWebPack
 
 frameworkVersion: "3"
 useDotenv: true
-# configValidationMode: error
 
 provider:
   name: aws
@@ -18,26 +17,35 @@ provider:
     PG_PASSWORD: $PG_PASSWORD
 
 functions:
-  getProductsListTask4:
-    handler: handler/getProductsList.getProductsList
+  getProductsListTask5WP:
+    handler: handler/getProductsListWP.getProductsListWP
     events:
       - http:
           path: products
           method: get
           cors: true
-  getProductsByIdTask4:
-    handler: handler/getProductsById.getProductsById
+  getProductsByIdTask5WP:
+    handler: handler/getProductsByIdWP.getProductsByIdWP
     events:
       - http:
           path: /products/{productId}
           method: get
           cors: true
-  postProductsTask4:
+  postProductsTask5:
     handler: handler/postProducts.postProducts
     events:
       - http:
           path: products
           method: post
           cors: true
+
 plugins:
+  - serverless-webpack
   - serverless-dotenv-plugin
+
+custom:
+  webpack:
+    webpackConfig: "./webpack.config.cjs" # Name of webpack configuration file
+    includeModules: true # Node modules configuration for packaging
+    packager: "npm" # Packager that will be used to package your external modules
+    excludeFiles: src/**/*.test.js # Provide a glob for files to ignore

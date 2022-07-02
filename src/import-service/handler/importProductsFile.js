@@ -31,6 +31,9 @@ export const importProductsFile = async (event) => {
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Credentials": true,
+        "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE",
+        "Access-Control-Expose-Headers": "*",
+        Allow: "GET, PUT, POST, DELETE",
       },
       body: signedURL,
     };

@@ -1,6 +1,8 @@
 "use strict";
 
+import AWS from "aws-sdk";
 import pkg from "pg";
+
 const { Client } = pkg;
 
 const { PG_HOST, PG_PORT, PG_DATABASE, PG_USERNAME, PG_PASSWORD } = process.env;
@@ -20,6 +22,7 @@ const dbOptions = {
 export const catalogBatchProcess = async (event) => {
   const client = new Client(dbOptions);
   await client.connect();
+  const sns = new AWS.SNS({ region: "eu-west-1" });
 
   const dataMessageQueue = await event.Records.map(({ body }) => body);
 
@@ -51,6 +54,17 @@ export const catalogBatchProcess = async (event) => {
     ('${createProId}', '${count}') `);
 
       await client.query("COMMIT");
+
+      sns.publish(
+        {
+          Subject: "You are invited processed",
+          Message: JSON.stringify(dataMessageQueue),
+          TopicArn: process.env.SNS_ARN,
+        },
+        () => {
+          console.log("Send email for:" + JSON.stringify(dataMessageQueue));
+        }
+      );
 
       return {
         statusCode: 201,

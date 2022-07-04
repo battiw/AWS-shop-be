@@ -29,18 +29,22 @@ export const importFileParser = async (event, context, callback) => {
                 QueueUrl: process.env.SQS_URL,
                 MessageBody: JSON.stringify(data),
               },
-              () => {
-                console.log("SEND MESSAGE FOR:" + JSON.stringify(data));
+              (error) => {
+                if (error) {
+                  console.log(`ERROR SEMDING MESSAGE: ${error}`);
+                } else {
+                  console.log(`SEND MESSAGE FOR: ${JSON.stringify(data)}`); //  instead of a callback, you can listen to the response and the response has a send method
+                }
               }
             );
 
-            // callback(null, {
-            //   statusCode: 200,
-            //   headers: {
-            //     "Access-Control-Allow-Origin": "*",
-            //     "Access-Control-Allow-Credentials": true,
-            //   },
-            // });
+            callback(null, {
+              statusCode: 200,
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Credentials": true,
+              },
+            });
           })
           .on("end", async () => {
             // console.log(JSON.stringify(results));
@@ -90,12 +94,12 @@ export const importFileParser = async (event, context, callback) => {
       body: null,
     };
   }
-  callback(null, console.log("kuku"), {
-    statusCode: 203,
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Credentials": true,
-    },
-  });
+  // callback(null, console.log("kuku"), {
+  //   statusCode: 203,
+  //   headers: {
+  //     "Access-Control-Allow-Origin": "*",
+  //     "Access-Control-Allow-Credentials": true,
+  //   },
+  // });
   console.log("kuku1");
 };

@@ -3,8 +3,9 @@
 import AWS from "aws-sdk";
 import csv from "csv-parser";
 
-export const importFileParser = async (event) => {
+export const importFileParser = async (event, context, callback) => {
   const s3 = new AWS.S3({ region: "eu-west-1" });
+  const sqs = new AWS.SQS();
 
   try {
     for (const record of event.Records) {
@@ -21,9 +22,28 @@ export const importFileParser = async (event) => {
         s3.getObject(params)
           .createReadStream()
           .pipe(csv(["title", "description", "price", "count"]))
-          .on("data", (data) => results.push(data))
+          // .on("data", (data) => results.push(data))
+          .on("data", (data) => {
+            sqs.sendMessage(
+              {
+                QueueUrl: process.env.SQS_URL,
+                MessageBody: JSON.stringify(data),
+              },
+              () => {
+                console.log("SEND MESSAGE FOR:" + JSON.stringify(data));
+              }
+            );
+
+            // callback(null, {
+            //   statusCode: 200,
+            //   headers: {
+            //     "Access-Control-Allow-Origin": "*",
+            //     "Access-Control-Allow-Credentials": true,
+            //   },
+            // });
+          })
           .on("end", async () => {
-            console.log(JSON.stringify(results));
+            // console.log(JSON.stringify(results));
 
             await s3
               .copyObject({
@@ -47,17 +67,17 @@ export const importFileParser = async (event) => {
             resolve(`OK`);
           });
       });
-      return {
-        statusCode: 200,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Credentials": true,
-          "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE",
-          "Access-Control-Expose-Headers": "*",
-          Allow: "GET, PUT, POST, DELETE",
-        },
-        body: JSON.stringify(results),
-      };
+      // return {
+      //   statusCode: 200,
+      //   headers: {
+      //     "Access-Control-Allow-Origin": "*",
+      //     "Access-Control-Allow-Credentials": true,
+      //     "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE",
+      //     "Access-Control-Expose-Headers": "*",
+      //     Allow: "GET, PUT, POST, DELETE",
+      //   },
+      //   body: JSON.stringify(results),
+      // };
     }
   } catch (error) {
     console.log(error);
@@ -70,4 +90,12 @@ export const importFileParser = async (event) => {
       body: null,
     };
   }
+  callback(null, console.log("kuku"), {
+    statusCode: 203,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Credentials": true,
+    },
+  });
+  console.log("kuku1");
 };

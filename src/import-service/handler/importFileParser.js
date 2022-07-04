@@ -33,7 +33,7 @@ export const importFileParser = async (event, context, callback) => {
                 if (error) {
                   console.log(`ERROR SEMDING MESSAGE: ${error}`);
                 } else {
-                  console.log(`SEND MESSAGE FOR: ${JSON.stringify(data)}`); //  instead of a callback, you can listen to the response and the response has a send method
+                  console.log(`SEND MESSAGE FOR: ${JSON.stringify(data)}`);
                 }
               }
             );
@@ -71,17 +71,6 @@ export const importFileParser = async (event, context, callback) => {
             resolve(`OK`);
           });
       });
-      // return {
-      //   statusCode: 200,
-      //   headers: {
-      //     "Access-Control-Allow-Origin": "*",
-      //     "Access-Control-Allow-Credentials": true,
-      //     "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE",
-      //     "Access-Control-Expose-Headers": "*",
-      //     Allow: "GET, PUT, POST, DELETE",
-      //   },
-      //   body: JSON.stringify(results),
-      // };
     }
   } catch (error) {
     console.log(error);
@@ -94,12 +83,5 @@ export const importFileParser = async (event, context, callback) => {
       body: null,
     };
   }
-  // callback(null, console.log("kuku"), {
-  //   statusCode: 203,
-  //   headers: {
-  //     "Access-Control-Allow-Origin": "*",
-  //     "Access-Control-Allow-Credentials": true,
-  //   },
-  // });
   console.log("kuku1");
 };

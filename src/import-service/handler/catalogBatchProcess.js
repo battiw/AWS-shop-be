@@ -66,10 +66,6 @@ export const catalogBatchProcess = async (event) => {
         isBase64Encoded: false,
       };
     }
-    console.log("11111111111");
-
-    // const { title, description, price, count } = JSON.parse(dataMessageQueue);
-    console.log("2222222222222");
   } catch (err) {
     await client.query("ROLLBACK");
 

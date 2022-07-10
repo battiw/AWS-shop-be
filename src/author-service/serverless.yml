@@ -1,0 +1,96 @@
+service: author-service
+
+frameworkVersion: "3"
+# useDotenv: true
+# configValidationMode: error
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: dev
+  region: eu-west-1
+
+  # environment:
+  #   SQL_URL:
+  #     Ref: SQSQueue
+  #   SNS_ARN:
+  #     Ref: SNSTopic
+
+  # iamRoleStatements:
+  #   - Effect: "Allow"
+  #     Action:
+  #       - "s3:ListBucket"
+  #     Resource:
+  #       - "arn:aws:s3:::battiw-shop-be-task5"
+  #   - Effect: "Allow"
+  #     Action:
+  #       - "s3:*"
+  #     Resource:
+  #       - "arn:aws:s3:::battiw-shop-be-task5/*"
+  #   - Effect: "Allow"
+  #     Action:
+  #       - "sqs:*"
+  #     Resource:
+  #       # - Fn::GetAtt: [SQSQueue, Arn]
+  #       !GetAtt SQSQueue.Arn
+  #   - Effect: "Allow"
+  #     Action:
+  #       - "sns:*"
+  #     Resource:
+  #       Ref: SNSTopic
+
+# resources:
+#   Resources:
+#     SQSQueue:
+#       Type: AWS::SQS::Queue
+#       Properties:
+#         QueueName: catalogItemsQueue
+#     SNSTopic:
+#       Type: AWS::SNS::Topic
+#       Properties:
+#         TopicName: createProductTopic
+#     SNSSsubscription:
+#       Type: AWS::SNS::Subscription
+#       Properties:
+#         Endpoint: tiwbwit@gmail.com
+#         Protocol: email
+#         TopicArn:
+#           Ref: SNSTopic
+
+# Outputs:
+#   SQSQueueArn:
+#     Value:
+#       Fn::GetAtt: [SQSQueue, Arn]
+#   SQSQueue:
+#     Value:
+#       Ref: SQSQueue
+
+functions:
+  importProductsFile:
+    handler: handler/basicAuthorizer.basicAuthorizer
+    events:
+      - http:
+          path: /import
+          method: get
+          cors: true
+          request:
+            parameters:
+              querystrings:
+                name: true
+  # importFileParser:
+  #   handler: handler/importFileParser.importFileParser
+  #   events:
+  #     - s3:
+  #         bucket: battiw-shop-be-task5
+  #         event: s3:ObjectCreated:*
+  #         rules:
+  #           - prefix: uploaded/
+  #         existing: true
+  # catalogBatchProcess:
+  #   handler: handler/catalogBatchProcess.catalogBatchProcess
+  #   events:
+  #     - sqs:
+  #         batchSize: 5
+  #         arn: !GetAtt SQSQueue.Arn
+# plugins:
+#   - serverless-dotenv-plugin

@@ -1,7 +1,7 @@
 service: author-service
 
 frameworkVersion: "3"
-# useDotenv: true
+useDotenv: true
 # configValidationMode: error
 
 provider:
@@ -66,17 +66,17 @@ provider:
 #       Ref: SQSQueue
 
 functions:
-  importProductsFile:
+  basicAuthorizer:
     handler: handler/basicAuthorizer.basicAuthorizer
-    events:
-      - http:
-          path: /import
-          method: get
-          cors: true
-          request:
-            parameters:
-              querystrings:
-                name: true
+    # events:
+    #   - http:
+    #       path: /import
+    #       method: get
+    #       cors: true
+    #       request:
+    #         parameters:
+    #           querystrings:
+    #             name: true
   # importFileParser:
   #   handler: handler/importFileParser.importFileParser
   #   events:
@@ -92,5 +92,5 @@ functions:
   #     - sqs:
   #         batchSize: 5
   #         arn: !GetAtt SQSQueue.Arn
-# plugins:
-#   - serverless-dotenv-plugin
+plugins:
+  - serverless-dotenv-plugin

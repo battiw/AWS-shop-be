@@ -1,0 +1,58 @@
+export default [
+  {
+    count: 4,
+    description: "Czech Republic ",
+    id: "7567ec4b-b10c-48c5-9345-fc73c48a80aa",
+    price: 351,
+    title: "Czech Republic",
+  },
+  {
+    count: 6,
+    description: "Mexico",
+    id: "7567ec4b-b10c-48c5-9345-fc73c48a80a0",
+    price: 1680,
+    title: "Mexico",
+  },
+  {
+    count: 7,
+    description: "United Arab Emirates",
+    id: "7567ec4b-b10c-48c5-9345-fc73c48a80a2",
+    price: 1490,
+    title: "United Arab Emirates",
+  },
+  {
+    count: 12,
+    description: "United States",
+    id: "7567ec4b-b10c-48c5-9345-fc73c48a80a1",
+    price: 1900,
+    title: "United States",
+  },
+  {
+    count: 7,
+    description: "Montenegro",
+    id: "7567ec4b-b10c-48c5-9345-fc73c48a80a3",
+    price: 270,
+    title: "Montenegro",
+  },
+  {
+    count: 8,
+    description: "New Zealand",
+    id: "7567ec4b-b10c-48c5-9345-fc73348a80a1",
+    price: 2590,
+    title: "New Zealand",
+  },
+  {
+    count: 2,
+    description: "Hong Kong",
+    id: "7567ec4b-b10c-48c5-9445-fc73c48a80a2",
+    price: 1950,
+    title: "Hong Kong",
+  },
+  {
+    count: 3,
+    description: "Japan",
+    id: "7567ec4b-b10c-45c5-9345-fc73c48a80a1",
+    price: 1530,
+    title: "Japan",
+  },
+];

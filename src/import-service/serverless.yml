@@ -1,7 +1,7 @@
 service: import-service
 
 frameworkVersion: "3"
-# useDotenv: true
+useDotenv: true
 # configValidationMode: error
 
 provider:
@@ -9,6 +9,12 @@ provider:
   runtime: nodejs14.x
   stage: dev
   region: eu-west-1
+
+  environment:
+    SQL_URL:
+      Ref: SQSQueue
+    SNS_ARN:
+      Ref: SNSTopic
 
   iamRoleStatements:
     - Effect: "Allow"
@@ -21,6 +27,43 @@ provider:
         - "s3:*"
       Resource:
         - "arn:aws:s3:::battiw-shop-be-task5/*"
+    - Effect: "Allow"
+      Action:
+        - "sqs:*"
+      Resource:
+        # - Fn::GetAtt: [SQSQueue, Arn]
+        !GetAtt SQSQueue.Arn
+    - Effect: "Allow"
+      Action:
+        - "sns:*"
+      Resource:
+        Ref: SNSTopic
+
+resources:
+  Resources:
+    SQSQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: catalogItemsQueue
+    SNSTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: createProductTopic
+    SNSSsubscription:
+      Type: AWS::SNS::Subscription
+      Properties:
+        Endpoint: tiwbwit@gmail.com
+        Protocol: email
+        TopicArn:
+          Ref: SNSTopic
+
+  Outputs:
+    SQSQueueArn:
+      Value:
+        Fn::GetAtt: [SQSQueue, Arn]
+    SQSQueue:
+      Value:
+        Ref: SQSQueue
 
 functions:
   importProductsFile:
@@ -43,6 +86,12 @@ functions:
           rules:
             - prefix: uploaded/
           existing: true
+  catalogBatchProcess:
+    handler: handler/catalogBatchProcess.catalogBatchProcess
+    events:
+      - sqs:
+          batchSize: 5
+          arn: !GetAtt SQSQueue.Arn
 
 plugins:
   - serverless-dotenv-plugin

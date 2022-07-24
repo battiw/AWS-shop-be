@@ -40,9 +40,9 @@ const generatePolicy = (principalId, resource, effect = "Allow") => {
       Statement: [
         {
           Action: "execute-api:Invoke",
-          Resource:
-            "arn:aws:lambda:eu-west-1:045079065180:function:import-service-dev-importProductsFile",
-          // Resource: resource,
+          // Resource:
+          //   "arn:aws:lambda:eu-west-1:045079065180:function:import-service-dev-importProductsFile",
+          Resource: resource,
           Effect: effect,
         },
       ],

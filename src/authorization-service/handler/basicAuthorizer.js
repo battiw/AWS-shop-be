@@ -5,12 +5,9 @@ export const basicAuthorizer = async (event, context, callback) => {
 
   if (event.type !== "TOKEN") {
     callback("Unauthorized");
-    console.log(`!!!!!!!!!!!!!!!!!!!!!!!!!!====>>> &&&&`);
   }
 
   try {
-    console.log(`@@@@@@@@@@@@@@@@@@@@====>>> ############`);
-
     const authorizationToken = event.authorizationToken;
     const encodedCreds = authorizationToken.split(" ")[1];
     const buff = Buffer.from(encodedCreds, "base64");

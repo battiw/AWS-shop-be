@@ -1,0 +1,18 @@
+service: authorization-service
+
+frameworkVersion: "3"
+useDotenv: true
+# configValidationMode: error
+
+plugins:
+  - serverless-dotenv-plugin
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: dev
+  region: eu-west-1
+
+functions:
+  basicAuthorizer:
+    handler: handler/basicAuthorizer.basicAuthorizer

@@ -1,5 +1,5 @@
+import express from "express";
 import axios from "axios";
-import express, { response } from "express";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -9,9 +9,10 @@ const PORT = process.env.PORT || 3001;
 app.use(express.json());
 
 app.all("/*", (res, req) => {
-  console.log("originalURL", req.originalUrl);
-  console.log("method", req.method);
-  console.log("body", req.body);
+  console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+  console.log("originalURL===>", req.originalUrl);
+  console.log("method===>", req.method);
+  console.log("body===>", req.body);
 
   const recipient = req.originalUrl.split("/")[1];
   console.log("recipient", recipient);
@@ -40,8 +41,8 @@ app.all("/*", (res, req) => {
           const { status, data } = error.response;
           res.status(status).json(data);
         } else {
-          console.log("hi");
-          res.status(500).json({ error: error.message });
+          res.status(501).json(`error: error.messagewwwwwwwwwwwwwwwwwww`);
+          // res.status(500).json({ error: error.message });
         }
       });
   } else {

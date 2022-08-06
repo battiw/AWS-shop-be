@@ -6,10 +6,14 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+console.log(`PORT===>`, PORT);
+
 app.use(express.json());
 
 app.all("/*", (res, req) => {
   console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+  console.log(req);
+
   console.log("originalURL===>", req.originalUrl);
   console.log("method===>", req.method);
   console.log("body===>", req.body);

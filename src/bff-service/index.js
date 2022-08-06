@@ -9,11 +9,11 @@ const PORT = process.env.PORT || 3001;
 app.use(express.json());
 
 app.all("/*", (res, req) => {
-  console.log("originalURL", originalURL);
+  console.log("originalURL", req.originalUrl);
   console.log("method", req.method);
   console.log("body", req.body);
 
-  const recipient = req.originalURL.split("/")[1];
+  const recipient = req.originalUrl.split("/")[1];
   console.log("recipient", recipient);
 
   const recipientURL = process.env[recipient];
@@ -22,7 +22,7 @@ app.all("/*", (res, req) => {
   if (recipientURL) {
     const axiosConfig = {
       method: req.method,
-      url: `${recipientURL}${req.originalURL}`,
+      url: `${recipientURL}${req.originalUrl}`,
       ...(Object.keys(req.body || {}).length > 0 && { data: req.body }),
     };
 
@@ -40,6 +40,7 @@ app.all("/*", (res, req) => {
           const { status, data } = error.response;
           res.status(status).json(data);
         } else {
+          console.log("hi");
           res.status(500).json({ error: error.message });
         }
       });

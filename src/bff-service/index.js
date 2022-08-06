@@ -11,14 +11,12 @@ console.log(`PORT===>`, PORT);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.all("/*", (res, req) => {
+app.all("/*", (req, res) => {
   console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-  console.log(req);
+  // console.log(req);
   console.log(`UUUUUUUUUUUURRRRRRRRRRLLLLLLLLLL==>${req.url}`);
 
   console.log("originalURL===>", req.originalUrl);
-  console.log("originalURL1===>", JSON.stringify(req.originalUrl));
-  console.log("originalURL2===>", JSON.parse(req.originalUrl));
   console.log("method===>", req.method);
   console.log("body===>", req.body);
 
